@@ -3,6 +3,7 @@ kind: Pod
 metadata:
   labels:
     run: nginx
+    environment: lab
   name: nginx
   namespace: workloads
 spec:

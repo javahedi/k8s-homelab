@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-green
+  namespace: workloads
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: release-demo
+      version: green
+  template:
+    metadata:
+      labels:
+        app: release-demo
+        version: green
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:stable
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo '<h1>GREEN — current version</h1>' > /usr/share/nginx/html/index.html
+              exec nginx -g 'daemon off;'

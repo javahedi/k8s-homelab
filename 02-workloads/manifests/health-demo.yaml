@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: health-demo
+  name: health-demo
+  namespace: workloads
+spec:
+  containers:
+  - image: nginx:stable
+    name: health-demo
+    resources: 
+        requests:
+            cpu: 50m
+            memory: 32Mi
+        limits:
+            cpu: 200m
+            memory: 128Mi
+    readinessProbe:
+        httpGet:
+            path: /
+            port: 80
+        initialDelaySeconds: 2
+        periodSeconds: 5
+    livenessProbe:
+        httpGet:
+            path: /
+            port: 80
+        initialDelaySeconds: 10
+        periodSeconds: 5
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello-cron
+  namespace: workloads
+spec:
+  jobTemplate:
+    metadata:
+      name: hello-cron
+    spec:
+      template:
+        metadata: {}
+        spec:
+          containers:
+          - command:
+            - sh
+            - -c
+            - date && echo "Scheduled task finished"
+            image: busybox:1.37
+            name: hello-cron
+            resources: {}
+          restartPolicy: OnFailure
+  schedule: '* * * * *'
+  suspend: true
+status: {}

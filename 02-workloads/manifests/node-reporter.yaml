@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-reporter
+  namespace: workloads
+spec:
+  selector:
+    matchLabels:
+      app: node-reporter
+  template:
+    metadata:
+      labels:
+        app: node-reporter
+    spec:
+      containers:
+        - name: reporter
+          image: busybox:1.37
+          command:
+            - sh
+            - -c
+            - |
+              while true; do
+                echo "Reporter running in Pod: $HOSTNAME"
+                sleep 30
+              done

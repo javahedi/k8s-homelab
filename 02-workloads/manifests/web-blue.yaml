@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-blue
+  namespace: workloads
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: release-demo
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: release-demo
+        version: blue
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:stable
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo '<h1>BLUE — current version</h1>' > /usr/share/nginx/html/index.html
+              exec nginx -g 'daemon off;'

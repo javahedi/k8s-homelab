@@ -5,6 +5,7 @@ metadata:
   namespace: workloads
   labels:
     app: nginx-pair
+    environment: lab
 spec:
   containers:
     - name: nginx

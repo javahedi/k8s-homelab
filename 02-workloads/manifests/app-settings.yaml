@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  APP_LANGUAGE: de
+  APP_NAME: Homelab
+kind: ConfigMap
+metadata:
+  name: app-settings
+  namespace: workloads

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  namespace: workloads
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-rs
+  template:
+    metadata:
+      labels:
+        app: nginx-rs
+        environment: lab
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:stable

@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-job
+  namespace: workloads
+spec:
+  template:
+    metadata: {}
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - echo "Job started" && date && echo "Task finished"
+        image: busybox:1.37
+        name: hello-job
+        resources: {}
+      restartPolicy: Never
+status: {}

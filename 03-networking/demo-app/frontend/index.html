@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Javad Jobs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 650px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #f4f6fa;
+    }
+    button {
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+    li {
+      background: white;
+      margin: 10px 0;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Javad Jobs</h1>
+  <p>Find your next opportunity.</p>
+
+  <button onclick="loadJobs()">Load jobs</button>
+  <p id="status"></p>
+  <ul id="jobs"></ul>
+
+  <script>
+    async function loadJobs() {
+      const status = document.getElementById("status");
+      const list = document.getElementById("jobs");
+
+      status.textContent = "Loading...";
+      list.replaceChildren();
+
+      try {
+        const response = await fetch("/api/jobs");
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const jobs = await response.json();
+
+        for (const job of jobs) {
+          const item = document.createElement("li");
+          item.textContent = `${job.title} — ${job.city}`;
+          list.appendChild(item);
+        }
+
+        status.textContent = `${jobs.length} jobs found.`;
+      } catch (error) {
+        status.textContent = `Could not load jobs: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>

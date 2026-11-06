@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+  namespace: jobs-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: docker.io/library/javad-jobs-frontend:v1
+        name: javad-jobs-frontend
+        ports:
+        - containerPort: 80
+        resources: {}
+        imagePullPolicy: Never
+status: {}

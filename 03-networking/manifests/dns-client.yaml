@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: dns-client
+  name: dns-client
+  namespace: networking
+spec:
+  containers:
+  - command:
+    - sleep
+    - "86400"
+    image: busybox:1.36
+    name: dns-client
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}

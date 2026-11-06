@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: jobs-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobs-backend
+  template:
+    metadata:
+      labels:
+        app: jobs-backend
+    spec:
+      containers:
+        - name: backend
+          image: docker.io/library/javad-jobs-backend:v1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000

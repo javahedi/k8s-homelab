@@ -22,3 +22,7 @@
 *.tar
 *.tar.gz
 *.log
+
+
+# secrete key PostgreSQL
+/04-storage/secrets/

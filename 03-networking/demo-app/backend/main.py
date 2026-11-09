@@ -1,3 +1,7 @@
+import os
+
+import psycopg
+from psycopg.rows import dict_row
 from fastapi import FastAPI
 from pathlib import Path
 from fastapi.responses import FileResponse
@@ -18,9 +22,26 @@ def health():
     return {"status": "ok"}
 
 
+#@app.get("/api/jobs")
+#def list_jobs():
+#    return [
+#        {"id": 1, "title": "Python Developer", "city": "Berlin"},
+#        {"id": 2, "title": "Kubernetes Administrator", "city": "Bremen"},
+#    ]
+
 @app.get("/api/jobs")
 def list_jobs():
-    return [
-        {"id": 1, "title": "Python Developer", "city": "Berlin"},
-        {"id": 2, "title": "Kubernetes Administrator", "city": "Bremen"},
-    ]
+    with psycopg.connect(
+        host=os.environ["POSTGRES_HOST"],
+        port=os.environ.get("POSTGRES_PORT", "5432"),
+        dbname=os.environ["POSTGRES_DB"],
+        user=os.environ["POSTGRES_USER"],
+        password=os.environ["POSTGRES_PASSWORD"],
+        connect_timeout=5,
+        row_factory=dict_row,
+    ) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT id, title, city FROM jobs ORDER BY id"
+            )
+            return cursor.fetchall()

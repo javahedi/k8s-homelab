@@ -15,7 +15,15 @@ spec:
     spec:
       containers:
         - name: backend
-          image: docker.io/library/javad-jobs-backend:v1
+          image: docker.io/library/javad-jobs-backend:v2
           imagePullPolicy: Never
           ports:
             - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: postgres-secret
+          env:
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_PORT
+              value: "5432"

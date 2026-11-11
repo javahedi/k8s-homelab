@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: broken-image
+  name: broken-image
+  namespace: troubleshooting
+spec:
+  containers:
+  - image: nginx:cka-invalid-tag
+    name: broken-image
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

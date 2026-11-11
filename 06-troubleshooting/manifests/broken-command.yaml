@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: broken-command
+  name: broken-command
+  namespace: troubleshooting
+spec:
+  containers:
+  - image: busybox:1.37
+    name: broken-command
+    command:
+        - sh
+        - -c
+        - 'echo "Application running"; sleep 3600'
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
